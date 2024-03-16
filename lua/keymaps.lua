@@ -117,7 +117,6 @@ wk.register({
 
 
 -- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -137,7 +136,22 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- ctrl+s to save
+wk.register({
+  ["<C-s>"] = { "<cmd>w<cr>", "Save" },
+}, {
+  mode = "n",
+  silent = true,
+  noremap = true,
+})
 
+wk.register({
+  ["<leader>h"] = { "<cmd>Bdelete<cr>", "Close Buffer" },
+}, {
+  mode = "n",
+  silent = true,
+  noremap = true,
+})
 
 
 -- vim: ts=2 sts=2 sw=2 et
