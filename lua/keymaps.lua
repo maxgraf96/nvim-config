@@ -157,4 +157,23 @@ keymap('n', '<C-a>', ':lua require("Comment.api").toggle.linewise.current()<CR>=
 -- Ctrl+x to cut current line
 keymap('n', '<C-x>', 'dd', opts)
 
+wk.register {
+  ['<leader>sv'] = { '<cmd>source $MYVIMRC<cr>', 'Source vimrc' },
+}
+
+-- leader g A to add all files to git
+wk.register {
+  ['<leader>gA'] = { '<cmd>Git add %:p:h<cr>', 'Add all files' },
+}
+-- leader g C to commit
+wk.register {
+  ['<leader>gC'] = { '<cmd>Git commit<cr>', 'Commit' },
+}
+-- leader g P to push
+wk.register {
+  ['<leader>gP'] = { '<cmd>Git push<cr>', 'Push' },
+}
+
+-- git test
+
 -- vim: ts=2 sts=2 sw=2 et
