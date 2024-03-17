@@ -19,16 +19,14 @@ require('lazy').setup({
 
   require 'kickstart/plugins/telescope',
 
-  require 'kickstart/plugins/lspconfig',
-
   require 'kickstart/plugins/conform',
-
-  require 'kickstart/plugins/cmp',
 
   require 'kickstart/plugins/todo-comments',
 
   -- Import all our plugins
   { import = 'custom.plugins' },
+  { import = 'custom.plugins.lsp' },
+
 
 
 }, {

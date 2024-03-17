@@ -11,14 +11,14 @@ return {
             vim.g.nord_uniform_diff_background = true
             vim.g.nord_bold = false
 
-            require('nord').setup({})
+            -- require('nord').setup({})
         end
     },
     { 
 		"tanvirtin/monokai.nvim",
 		priority = 1000,
         config = function()
-            -- require('monokai').setup { palette = require('monokai').ristretto }
+            require('monokai').setup { palette = require('monokai').ristretto, italics=false }
         end
 	},
     { 
