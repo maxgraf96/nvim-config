@@ -166,6 +166,13 @@ wk.register {
     ['<leader>gP'] = { '<cmd>Git push<cr>', 'Push' },
 }
 
+-- Ctrl + u undoes the last action in insert mode
+keymap('i', '<C-u>', '<Nop>', opts)
+vim.api.nvim_set_keymap('i', '<C-u>', '<C-g>u<Esc>u<Insert>', {noremap = true})
+-- Ctrl + h and Ctrl + l to move one entire word forward and backward in insert mode
+vim.api.nvim_set_keymap('i', '<C-h>', '<S-Left>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-l>', '<S-Right>', {noremap = true, silent = true})
+
 -- vim.keymap.set('n', '<C-p>', require('auto-session.session-lens').search_session, {
 --     noremap = true,
 -- })

@@ -18,7 +18,17 @@ return {
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup()
+      require('which-key').setup({
+        presets = {
+          operators = true,
+          motions = true,
+          text_objects = true,
+          windows = false,
+          nav = true,
+          z = true,
+          g = true,
+        },
+      })
 
       -- Document existing key chains
       require('which-key').register {
