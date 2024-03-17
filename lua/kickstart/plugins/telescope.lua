@@ -91,10 +91,10 @@ return {
                             local project_path_clean = string.gsub(project_path, '\\', '/')
 
                             -- Get path to powershell script: NvimStartFromNewWorkDir.ps1 - it's in nvim config directory
-                            local script_path = vim.fn.stdpath('config') .. '/NvimStartFromNewWorkDir.ps1'
+                            local script_path = vim.fn.stdpath 'config' .. '/windows/NvimStartFromNewWorkDir.ps1'
                             script_path = string.gsub(script_path, '\\', '/')
-                            
-                            vim.cmd('echo "Nvim new session script path: ' .. script_path.. '"')
+
+                            vim.cmd('echo "Nvim new session script path: ' .. script_path .. '"')
                             -- vim.cmd('echo "Starting Neovim in ' .. project_path_clean .. '"')
                             -- construct command
                             -- local command = 'powershell -file "' .. script_path .. ' -x "' .. project_path_clean .. '"'
@@ -102,7 +102,6 @@ return {
                             -- vim.cmd('echo "Command: ' .. command .. '"')
 
                             vim.cmd(':silent !powershell -file "' .. script_path .. '" -x "' .. project_path_clean .. '"')
-
                         end,
                     },
                     ['ui-select'] = {
