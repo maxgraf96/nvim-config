@@ -34,7 +34,7 @@ vim.g.maplocalleader = ' '
 
 -- Set the python path - custom venv that we need to create for each machine
 -- This one is for windows
-vim.g.python3_host_prog = vim.fn.stdpath("config") .. "/venv/Scripts/python.exe"
+vim.g.python3_host_prog = vim.fn.stdpath 'config' .. '/venv/Scripts/python.exe'
 -- Todo different on macOS
 
 -- Set to true if you have a Nerd Font installed
@@ -52,20 +52,13 @@ require 'lazy-plugins'
 -- [[ Basic Keymaps ]]
 require 'keymaps'
 
--- vim.cmd("colorscheme monokai")
-vim.cmd 'colorscheme catppuccin'
+vim.cmd 'colorscheme monokai-pro'
 
 -- Open nvim-tree
 -- vim.cmd 'NvimTreeOpen'
 
 -- Make it so that when I type :qq it write :qa
 vim.cmd 'cabbrev qq qa'
-
-require('lualine').setup {
-    options = {
-        theme = 'catppuccin',
-    },
-}
 
 require('toggleterm').setup {
     open_mapping = [[<C-\>]],
