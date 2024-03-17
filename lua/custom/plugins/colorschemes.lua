@@ -44,7 +44,7 @@ return {
                     -- "float_win",
                     'toggleterm',
                     'telescope',
-                    -- "which-key",
+                    'which-key',
                     'renamer',
                     'notify',
                     'nvim-tree',
@@ -61,6 +61,15 @@ return {
                         context_start_underline = false,
                     },
                 },
+                overrideScheme = function(cs, p, config, hp)
+                    local cs_override = {}
+                    local calc_bg = hp.blend(p.background, 0.85, '#000000')
+
+                    cs_override.editor = {
+                        background = calc_bg,
+                    }
+                    return cs_override
+                end,
             }
         end,
     },

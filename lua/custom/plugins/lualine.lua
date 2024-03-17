@@ -31,8 +31,9 @@ local lualine_config = function()
 
     local filetype = {
         'filetype',
-        icons_enabled = false,
-        icon = nil,
+        colored = true, -- Displays filetype icon in color if set to true
+        icon_only = false, -- Display only an icon for filetype
+        icon = { align = 'right' }, -- Display filetype icon on the right hand side
     }
 
     local branch = {
@@ -60,12 +61,19 @@ local lualine_config = function()
         return 'spaces: ' .. vim.api.nvim_buf_get_option(0, 'shiftwidth')
     end
 
+    local custom_monokai = require 'lualine.themes.monokai-pro'
+    custom_monokai.normal.a.bg = custom_monokai.normal.c.bg
+    custom_monokai.normal.a.fg = custom_monokai.normal.c.fg
+
     lualine.setup {
         options = {
-            theme = 'monokai-pro',
+            theme = custom_monokai,
+            -- theme = 'monokai-pro',
             icons_enabled = true,
-            component_separators = { left = '', right = '' },
-            section_separators = { left = '', right = '' },
+            section_separators = { left = '', right = '' },
+            component_separators = { left = '', right = '' },
+            -- component_separators = { left = '', right = '' },
+            -- section_separators = { left = '', right = '' },
             disabled_filetypes = { 'dashboard', 'NvimTree', 'Outline' },
             always_divide_middle = true,
         },
@@ -74,7 +82,6 @@ local lualine_config = function()
             lualine_b = { mode },
             lualine_c = { require('auto-session.lib').current_session_name },
             lualine_d = { 'filename' },
-            -- lualine_x = { "encoding", "fileformat", "filetype" },
             lualine_x = { diff, spaces, 'encoding', filetype },
             lualine_y = { location },
             lualine_z = { progress },
