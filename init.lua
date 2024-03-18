@@ -48,6 +48,7 @@ require 'lazy-bootstrap'
 
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
+vim.notify = require 'notify'
 
 -- [[ Basic Keymaps ]]
 require 'keymaps'

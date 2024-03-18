@@ -5,9 +5,11 @@ return {
         -- Your options go here
         -- name = "venv",
         -- auto_refresh = false
+        dap_enabled = true,
         config = function()
             require('venv-selector').setup {
                 --- other configuration
+
                 -- changed_venv_hooks = { your_hook_name },
             }
         end,
@@ -20,4 +22,3 @@ return {
         { '<leader>vc', '<cmd>VenvSelectCached<cr>' },
     },
 }
-
