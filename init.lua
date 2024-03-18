@@ -66,8 +66,11 @@ require('toggleterm').setup {
 
 require('Comment').setup()
 
--- set nowrapscan
-vim.cmd 'set nowrapscan'
+-- Make search within file wrap around
+vim.opt.wrapscan = true
+
+-- Position the cursor in the main buffer, not in nvim-tree
+-- For us that's just ctrl+l
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
