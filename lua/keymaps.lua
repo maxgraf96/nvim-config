@@ -174,5 +174,9 @@ vim.api.nvim_set_keymap('i', '<C-h>', '<S-Left>', { noremap = true, silent = tru
 vim.api.nvim_set_keymap('i', '<C-l>', '<S-Right>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<C-w>', '<cmd>Bdelete<cr>', { noremap = true, silent = true })
+
+-- Ctrl + alt + l reveals file in nvim-tree in normal mode
+vim.api.nvim_set_keymap('n', '<C-A-l>', '<cmd>NvimTreeFindFile<cr>', { noremap = true, silent = true })
+
 -- vim: ts=2 sts=2 sw=2 et
 --

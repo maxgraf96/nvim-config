@@ -69,6 +69,20 @@ require('Comment').setup()
 -- Make search within file wrap around
 vim.opt.wrapscan = true
 
+vim.api.nvim_create_autocmd('VimEnter', {
+    desc = 'Auto select virtualenv Nvim open',
+    pattern = '*',
+    callback = function()
+        local venv = vim.fn.finddir('venv', vim.fn.getcwd() .. ';')
+        if venv ~= '' then
+            require('venv-selector').retrieve_from_cache()
+            -- echo that the venv with the path has been activated
+            vim.cmd 'echo "Venv activated."'
+        end
+    end,
+    once = true,
+})
+
 -- Position the cursor in the main buffer, not in nvim-tree
 -- For us that's just ctrl+l
 

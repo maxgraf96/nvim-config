@@ -65,6 +65,17 @@ local lualine_config = function()
     custom_monokai.normal.a.bg = custom_monokai.normal.c.bg
     custom_monokai.normal.a.fg = custom_monokai.normal.c.fg
 
+    local function project_n_venv()
+        local venv = vim.fn.finddir('venv', vim.fn.getcwd() .. ';')
+        local venv_str = ''
+        if venv ~= '' then
+            venv_str = '  ' .. venv
+        end
+        local session_name = require('auto-session.lib').current_session_name()
+        return session_name .. ' | ' .. venv_str
+    end
+    -- local glorious = venv_str .. ' ' .. test
+
     lualine.setup {
         options = {
             theme = custom_monokai,
@@ -80,8 +91,9 @@ local lualine_config = function()
         sections = {
             lualine_a = { branch, diagnostics },
             lualine_b = { mode },
-            lualine_c = { require('auto-session.lib').current_session_name },
-            lualine_d = { 'filename' },
+            lualine_c = { project_n_venv },
+            -- lualine_c = { require('auto-session.lib').current_session_name },
+            -- lualine_d = { 'filename' },
             lualine_x = { diff, spaces, 'encoding', filetype },
             lualine_y = { location },
             lualine_z = { progress },
@@ -100,8 +112,6 @@ local lualine_config = function()
 end
 
 return {
-    {
-        'nvim-lualine/lualine.nvim',
-        config = lualine_config,
-    },
+    'nvim-lualine/lualine.nvim',
+    config = lualine_config,
 }
