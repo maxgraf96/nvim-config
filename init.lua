@@ -1,31 +1,3 @@
---[[
-
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
-
-    This should be the first place you go to look when you're stuck or confused
-    with something. It's one of my favorite neovim features.
-
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not sure exactly what you're looking for.
-
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or neovim features used in kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your nvim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info
-
-I hope you enjoy your Neovim journey,
-- TJ
---]]
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -70,6 +42,8 @@ require('Comment').setup()
 -- Make search within file wrap around
 vim.opt.wrapscan = true
 
+-- Autocommands --
+-- Auto select virtualenv for python projects that have a venv folder on Nvim open
 vim.api.nvim_create_autocmd('VimEnter', {
     desc = 'Auto select virtualenv Nvim open',
     pattern = '*',
@@ -84,8 +58,59 @@ vim.api.nvim_create_autocmd('VimEnter', {
     once = true,
 })
 
--- Position the cursor in the main buffer, not in nvim-tree
--- For us that's just ctrl+l
+-- Close nvim-dap-ui if open before we leave, otherwise it will ruin the auto-session
+vim.api.nvim_create_autocmd('VimLeavePre', {
+    desc = 'Close nvim-dap-ui if open',
+    pattern = '*',
+    callback = function(args)
+        require('dapui').close()
+    end,
+    once = true,
+})
+
+local dap, dapui = require 'dap', require 'dapui'
+dap.listeners.before.attach.dapui_config = function()
+    dapui.open()
+    -- also hide nvim-tree
+    vim.cmd 'NvimTreeClose'
+end
+dap.listeners.before.launch.dapui_config = function()
+    dapui.open()
+    -- also hide nvim-tree
+    vim.cmd 'NvimTreeClose'
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+    dapui.close()
+    -- also show nvim-tree
+    vim.cmd 'NvimTreeOpen'
+end
+dap.listeners.before.event_exited.dapui_config = function()
+    dapui.close()
+    -- also show nvim-tree
+    vim.cmd 'NvimTreeOpen'
+end
+
+-- Scrolling stuff --
+require('neoscroll').setup {
+    easing_function = 'quadratic',
+}
+-- replace <ScrollWheelUp> and <ScrollWheelDown> with the function call
+-- to neoscroll#scroll
+vim.api.nvim_set_keymap('n', '<ScrollWheelUp>', '<cmd>lua require("neoscroll").scroll(-6, true, 40)<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<ScrollWheelDown>', '<cmd>lua require("neoscroll").scroll(6, true, 40)<cr>', { noremap = true, silent = true })
+
+-- IMPORTANT: This needs to point to our nvim python executable that has pydebug installed, not the one in the cwd (unless it also has pydebug installed, which would be silly)
+local dap_python_path = vim.fn.stdpath 'config' .. '/venv/Scripts/python.exe'
+require('dap-python').setup(dap_python_path)
+
+local general = augroup('General Settings', { clear = true })
+autocmd('BufEnter', {
+    callback = function()
+        vim.opt.formatoptions:remove { 'c', 'r', 'o' }
+    end,
+    group = general,
+    desc = 'Disable New Line Comment',
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

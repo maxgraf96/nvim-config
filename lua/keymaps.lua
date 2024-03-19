@@ -181,23 +181,36 @@ vim.api.nvim_set_keymap('n', '<C-A-l>', '<cmd>NvimTreeFindFile<cr>', { noremap =
 -- F8 to debug main.py in the current directory
 vim.keymap.set('n', '<F8>', function()
     local venv_path = os.getenv 'VIRTUAL_ENV' or os.getenv 'CONDA_PREFIX'
-    local target_file = vim.fn.expand '%:p:h' .. '\\' .. 'main.py'
+    local target_file = vim.fn.getcwd() .. '\\' .. 'main.py'
     vim.notify('Launching file: ' .. target_file, 'info')
     -- vim.notify('Venv path: ' .. venv_path)
-    require('dap').run {
+    local dap = require 'dap'
+    dap.defaults.fallback.force_external_terminal = true
+    dap.defaults.fallback.external_terminal = {
+        command = 'cmd.exe',
+        args = {},
+    }
+    dap.run {
         type = 'python',
         request = 'launch',
         name = 'Python: Launch file',
         program = target_file,
+        cwd = vim.fn.getcwd(),
         -- venv on Windows uses Scripts instead of bin
-        pythonPath = venv_path and ((vim.fn.has 'win32' == 1 and venv_path .. '/Scripts/python') or venv_path .. '/bin/python') or nil,
-        console = 'integratedTerminal',
-    }
-end, { noremap = true, silent = false })
+        -- pythonPath = venv_path and ((vim.fn.has 'win32' == 1 and venv_path .. '/Scripts/python') or venv_path .. '/bin/python') or nil,
+        pythonPath = function()
+            return require('venv-selector').get_active_path()
+        end,
 
--- vim.keymap.set('n', '<F8>', function()
---     vim.notify('This is an error message', 'error')
--- end, { noremap = true, silent = true })
+        justMyCode = false,
+        console = 'internalConsole',
+        -- console = 'externalTerminal',
+        args = { '--multiprocess' },
+        subProcess = true,
+    }
+end, { noremap = true, silent = true })
+
+vim.keymap.set('n', '<M-e>', '<cmd>lua require("dapui").eval()<CR>', { noremap = true, silent = true })
 
 -- vim: ts=2 sts=2 sw=2 et
 --

@@ -87,6 +87,14 @@ local lualine_config = function()
             -- section_separators = { left = '', right = '' },
             disabled_filetypes = { 'dashboard', 'NvimTree', 'Outline' },
             always_divide_middle = true,
+            disabled_filetypes = {
+                'dapui_watches',
+                'dapui_breakpoints',
+                'dapui_scopes',
+                'dapui_console',
+                'dapui_stacks',
+                'dap-repl',
+            },
         },
         sections = {
             lualine_a = { branch, diagnostics },
@@ -106,6 +114,7 @@ local lualine_config = function()
             lualine_y = {},
             lualine_z = {},
         },
+
         tabline = {},
         extensions = {},
     }

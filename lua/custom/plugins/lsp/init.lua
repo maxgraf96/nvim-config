@@ -64,6 +64,9 @@ return {
                     askForFile = true,
                     -- Do not stop at the entry
                     justMyCode = false,
+                    args = { '--multiprocess' },
+                    subProcess = true,
+                    console = 'internalConsole',
                 },
             }
 
@@ -110,7 +113,7 @@ return {
         config = function()
             require('dapui').setup()
             -- Key mappings
-            vim.api.nvim_set_keymap('n', '<Leader>dt', "<Cmd>lua require'dapui'.toggle()<CR>", {
+            vim.api.nvim_set_keymap('n', '<Leader>dd', "<Cmd>lua require'dapui'.toggle()<CR>", {
                 noremap = true,
             })
         end,
