@@ -85,8 +85,12 @@ local lualine_config = function()
             component_separators = { left = '', right = '' },
             -- component_separators = { left = '', right = '' },
             -- section_separators = { left = '', right = '' },
-            disabled_filetypes = { 'dashboard', 'NvimTree', 'Outline' },
             always_divide_middle = true,
+            ignore_focus = {
+                'NVimTree',
+                'dashboard',
+                'Outline',
+            },
             disabled_filetypes = {
                 'dapui_watches',
                 'dapui_breakpoints',

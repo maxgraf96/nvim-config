@@ -103,14 +103,21 @@ vim.api.nvim_set_keymap('n', '<ScrollWheelDown>', '<cmd>lua require("neoscroll")
 local dap_python_path = vim.fn.stdpath 'config' .. '/venv/Scripts/python.exe'
 require('dap-python').setup(dap_python_path)
 
-local general = augroup('General Settings', { clear = true })
-autocmd('BufEnter', {
-    callback = function()
-        vim.opt.formatoptions:remove { 'c', 'r', 'o' }
-    end,
-    group = general,
-    desc = 'Disable New Line Comment',
-})
+vim.api.nvim_create_user_command('GCA', function()
+    local input = vim.fn.input 'Commit message: '
+    -- Escape single quotes in the commit message
+    input = input:gsub("'", "'\\''")
+
+    if input == '' then
+        print 'Commit aborted: no commit message entered.'
+        return
+    end
+
+    -- Run git commands using Fugitive
+    vim.cmd 'G add .' -- equivalent to 'git add .'
+    vim.cmd("G commit -m '" .. input .. "'") -- commit with the provided message
+    vim.cmd 'G push' -- push the commit
+end, { nargs = 0 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
