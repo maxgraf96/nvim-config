@@ -119,5 +119,11 @@ vim.api.nvim_create_user_command('GCA', function()
     vim.cmd 'G push' -- push the commit
 end, { nargs = 0 })
 
+require('csvlens').setup {
+    direction = 'horizontal', -- "float" | "vertical" | "horizontal" |  "tab"
+    exec_path = 'csvlens', -- You can specify the path to the executable if you wish. Otherwise, it will use the command in the PATH.
+    exec_install_path = vim.fn.stdpath 'data' .. '/csvlens.nvim/', -- directory to install the executable to if it's not found in the exec_path, ends with /
+}
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
