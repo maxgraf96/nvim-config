@@ -1,7 +1,3 @@
--- Prefer downloading Treesitter parsers without Git
-require('nvim-treesitter.install').prefer_git = false
-require('nvim-treesitter.install').compilers = { 'cl' }
-
 local treesitter_config = function()
     local configs = require 'nvim-treesitter.configs'
     configs.setup {

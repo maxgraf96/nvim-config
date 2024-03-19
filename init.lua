@@ -125,5 +125,11 @@ require('csvlens').setup {
     exec_install_path = vim.fn.stdpath 'data' .. '/csvlens.nvim/', -- directory to install the executable to if it's not found in the exec_path, ends with /
 }
 
+-- Prefer downloading Treesitter parsers without Git
+require('nvim-treesitter.install').prefer_git = false
+-- Todo: probably different order for macOS
+-- Todo 2: If some windows installs fail at some point, try different compilers here, see https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support
+require('nvim-treesitter.install').compilers = { 'gcc' }
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
