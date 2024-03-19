@@ -209,6 +209,13 @@ vim.keymap.set('n', '<F8>', function()
         subProcess = true,
     }
 end, { noremap = true, silent = true })
+wk.register({
+    ['<leader>ds'] = { "<cmd>lua require'dap'.disconnect({ terminateDebuggee = true })<CR>", 'Stop debugging' },
+}, {
+    mode = 'n',
+    silent = true,
+    noremap = true,
+})
 
 vim.keymap.set('n', '<M-e>', '<cmd>lua require("dapui").eval()<CR>', { noremap = true, silent = true })
 

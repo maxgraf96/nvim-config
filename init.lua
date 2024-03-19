@@ -25,6 +25,16 @@ vim.notify = require 'notify'
 -- [[ Basic Keymaps ]]
 require 'keymaps'
 
+vim.api.nvim_create_autocmd('ColorScheme', {
+    pattern = '*',
+    desc = 'prevent colorscheme clears self-defined DAP icon colors.',
+    callback = function()
+        vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939' })
+        vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef' })
+        vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, bg = '#264b33' })
+    end,
+})
+
 vim.cmd 'colorscheme monokai-pro'
 -- Open nvim-tree
 -- vim.cmd 'NvimTreeOpen'
@@ -82,11 +92,15 @@ dap.listeners.before.event_terminated.dapui_config = function()
     dapui.close()
     -- also show nvim-tree
     vim.cmd 'NvimTreeOpen'
+    -- back to editor
+    vim.cmd 'NavigatorRight'
 end
 dap.listeners.before.event_exited.dapui_config = function()
     dapui.close()
     -- also show nvim-tree
     vim.cmd 'NvimTreeOpen'
+    -- back to editor
+    vim.cmd 'NavigatorRight'
 end
 
 -- Scrolling stuff --
@@ -129,6 +143,10 @@ require('nvim-treesitter.install').prefer_git = false
 -- Todo: probably different order for macOS
 -- Todo 2: If some windows installs fail at some point, try different compilers here, see https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support
 require('nvim-treesitter.install').compilers = { 'gcc' }
+
+vim.fn.sign_define('DapLogPoint', { texthl = 'DapLogPoint' })
+vim.fn.sign_define('DapStopped', { texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
+require('nvim-dap-virtual-text').setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

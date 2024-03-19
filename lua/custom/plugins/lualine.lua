@@ -79,6 +79,7 @@ local lualine_config = function()
     lualine.setup {
         options = {
             theme = custom_monokai,
+            globalstatus = true, -- only one status line for entire window
             -- theme = 'monokai-pro',
             icons_enabled = true,
             section_separators = { left = '', right = '' },
