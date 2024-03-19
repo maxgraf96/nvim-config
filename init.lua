@@ -26,7 +26,6 @@ vim.notify = require 'notify'
 require 'keymaps'
 
 vim.cmd 'colorscheme monokai-pro'
-
 -- Open nvim-tree
 -- vim.cmd 'NvimTreeOpen'
 

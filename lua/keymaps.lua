@@ -152,7 +152,7 @@ keymap('n', '<A-S-k>', ':m .-2<CR>==', { noremap = true, silent = true })
 keymap('n', '<A-S-j>', ':m .+2<CR>==', { noremap = true, silent = true })
 
 -- Comment current line with line comment with Ctrl+Shift+c
-keymap('n', '<C-a>', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
+keymap('n', '<C-a>', ':lua require("Comment.api").toggle.linewise.current()<CR>j', { noremap = true, silent = true })
 
 -- Ctrl+x to cut current line
 keymap('n', '<C-x>', 'dd', opts)
