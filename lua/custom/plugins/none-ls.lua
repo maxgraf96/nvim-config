@@ -22,7 +22,7 @@ function M.config()
             formatting.prettierd.with {
                 filetypes = { 'html', 'javascript', 'typescript', 'json', 'yaml', 'css', 'svelte' },
                 extra_filetypes = { 'svelte' },
-                extra_args = { '--print-width', '100', '--single-attribute-per-line', 'false' },
+                extra_args = { '--print-width=100', '--single-attribute-per-line=false', '--tab-width=4' },
             },
             formatting.black,
             -- formatting.eslint,

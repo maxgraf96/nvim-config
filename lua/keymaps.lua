@@ -252,5 +252,20 @@ wk.register({
     noremap = true,
 })
 
+wk.register({
+    ['<M-UP>'] = { ':m .-2<CR>==', 'Move line up' },
+}, {
+    mode = 'n',
+    silent = true,
+    noremap = true,
+})
+wk.register({
+    ['<M-DOWN>'] = { ':m .+1<CR>==', 'Move line down' },
+}, {
+    mode = 'n',
+    silent = true,
+    noremap = true,
+})
+
 -- vim: ts=2 sts=2 sw=2 et
 --
