@@ -6,7 +6,6 @@ local treesitter_config = function()
             'lua',
             'vim',
             'vimdoc',
-            'query',
             'json',
             'yaml',
             'html',
@@ -29,7 +28,6 @@ local treesitter_config = function()
             'scss',
             'svelte',
             'toml',
-            'yaml',
         },
         sync_install = false,
         auto_install = true,
@@ -42,7 +40,7 @@ local treesitter_config = function()
             disable = { '' }, -- list of language that will be disabled
             additional_vim_regex_highlighting = false,
         },
-        indent = { enable = true },
+        -- indent = { enable = true },
         autotag = {
             enable = true,
         },

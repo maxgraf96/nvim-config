@@ -22,17 +22,12 @@ function M.config()
             formatting.prettierd.with {
                 filetypes = { 'html', 'javascript', 'typescript', 'json', 'yaml', 'css', 'svelte' },
                 extra_filetypes = { 'svelte' },
-                printWidth = 100,
+                extra_args = { '--print-width', '100', '--single-attribute-per-line', 'false' },
             },
             formatting.black,
-            -- formatting.prettier.with {
-            --   extra_filetypes = { "toml" },
-            --   -- extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
-            -- },
             -- formatting.eslint,
             -- Diagnostics
-            null_ls.builtins.diagnostics.mypy,
-            null_ls.builtins.diagnostics.ruff,
+            -- null_ls.builtins.diagnostics.mypy,
             -- diagnostics.flake8,
             null_ls.builtins.completion.spell,
         },

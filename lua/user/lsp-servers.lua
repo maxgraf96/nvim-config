@@ -13,6 +13,7 @@ M.servers = {
     'marksman',
     'yamlls',
     'tailwindcss',
+    'ruff_lsp',
 }
 
 return M

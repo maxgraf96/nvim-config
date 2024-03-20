@@ -123,6 +123,10 @@ function M.config()
         -- Other server specific options will go here...
         --
         --
+        if server == 'ruff_lsp' then
+            -- Disable hover in favor of Pyright
+            opts.capabilities.hoverProvider = false
+        end
 
         lspconfig[server].setup(opts)
     end
