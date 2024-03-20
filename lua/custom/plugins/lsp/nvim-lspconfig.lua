@@ -128,6 +128,33 @@ function M.config()
             opts.capabilities.hoverProvider = false
         end
 
+        -- vim.cmd('echom "Setting up LSP server for ' .. server .. '"')
+
+        if server == 'svelte' then
+            vim.cmd [[echo "Svelte LSP is enabled"]]
+            opts.filetypes = { 'typescript', 'javascript', 'svelte', 'html', 'css' }
+            opts.on_attach = function(client)
+                vim.api.nvim_create_autocmd('BufWritePost', {
+                    pattern = { '*.js', '*.ts' },
+                    callback = function(ctx)
+                        client.notify('$/onDidChangeTsOrJsFile', { uri = ctx.file })
+                    end,
+                })
+                vim.api.nvim_create_autocmd({ 'BufWrite' }, {
+                    pattern = { '+page.server.ts', '+page.ts', '+layout.server.ts', '+layout.ts' },
+                    command = 'LspRestart svelte',
+                })
+            end
+
+            -- Additionally, disable tsserver for svelte files
+            lspconfig.tsserver.setup {
+                on_attach = function(client)
+                    client.resolved_capabilities.document_formatting = false
+                    client.resolved_capabilities.document_range_formatting = false
+                end,
+            }
+        end
+
         lspconfig[server].setup(opts)
     end
 end

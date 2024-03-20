@@ -14,6 +14,7 @@ M.servers = {
     'yamlls',
     'tailwindcss',
     'ruff_lsp',
+    'svelte',
 }
 
 return M
