@@ -21,16 +21,13 @@ return {
             on_create = function(term)
                 local venv = vim.fn.finddir('venv', vim.fn.getcwd() .. ';')
                 if venv ~= '' then
-                    -- vim.cmd 'startinsert!'
-                    -- term:send(vim.fn.stdpath 'config' .. '/venv/Scripts/activate')
+                    -- Use vim.cmd to execute Vim commands
+                    -- Using :send to send the command 'sact' to the terminal
+                    -- The <CR> simulates pressing Enter after the command
+                    vim.cmd(string.format("call jobsend(%d, 'sact')", term.job_id))
+                    -- add <CR>
+                    vim.cmd(string.format('call jobsend(%d, "\\<CR>")', term.job_id))
                 end
-
-                -- Use vim.cmd to execute Vim commands
-                -- Using :send to send the command 'sact' to the terminal
-                -- The <CR> simulates pressing Enter after the command
-                vim.cmd(string.format("call jobsend(%d, 'sact')", term.job_id))
-                -- add <CR>
-                vim.cmd(string.format('call jobsend(%d, "\\<CR>")', term.job_id))
             end,
         }
     end,
