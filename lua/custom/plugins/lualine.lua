@@ -1,4 +1,9 @@
-local lualine_config = function()
+local M = {
+    'nvim-lualine/lualine.nvim',
+    lazy = false,
+}
+
+M.config = function()
     local lualine = require 'lualine'
 
     local hide_in_width = function()
@@ -13,6 +18,7 @@ local lualine_config = function()
         colored = false,
         update_in_insert = false,
         always_visible = true,
+        color = { bg = '#19181a', fg = 'grey' },
     }
 
     local diff = {
@@ -40,6 +46,7 @@ local lualine_config = function()
         'branch',
         icons_enabled = true,
         icon = '',
+        color = { bg = '#19181a', fg = 'grey' },
     }
 
     local location = {
@@ -61,9 +68,9 @@ local lualine_config = function()
         return 'spaces: ' .. vim.api.nvim_buf_get_option(0, 'shiftwidth')
     end
 
-    local custom_monokai = require 'lualine.themes.monokai-pro'
-    custom_monokai.normal.a.bg = custom_monokai.normal.c.bg
-    custom_monokai.normal.a.fg = custom_monokai.normal.c.fg
+    -- local custom_monokai = require 'lualine.themes.monokai-pro'
+    -- custom_monokai.normal.a.bg = custom_monokai.normal.c.bg
+    -- custom_monokai.normal.a.fg = custom_monokai.normal.c.fg
 
     local function project_n_venv()
         local venv = vim.fn.finddir('venv', vim.fn.getcwd() .. ';')
@@ -74,18 +81,15 @@ local lualine_config = function()
         local session_name = require('auto-session.lib').current_session_name()
         return session_name .. ' | ' .. venv_str
     end
-    -- local glorious = venv_str .. ' ' .. test
 
     lualine.setup {
         options = {
-            theme = custom_monokai,
-            globalstatus = true, -- only one status line for entire window
+            -- theme = custom_monokai,
             -- theme = 'monokai-pro',
+            globalstatus = true, -- only one status line for entire window
             icons_enabled = true,
-            section_separators = { left = '', right = '' },
-            component_separators = { left = '', right = '' },
-            -- component_separators = { left = '', right = '' },
-            -- section_separators = { left = '', right = '' },
+            section_separators = { left = '|', right = '|' },
+            component_separators = { left = '|', right = '|' },
             always_divide_middle = true,
             ignore_focus = {
                 'NVimTree',
@@ -105,7 +109,6 @@ local lualine_config = function()
             lualine_a = { branch, diagnostics },
             lualine_b = { mode },
             lualine_c = { project_n_venv },
-            -- lualine_c = { require('auto-session.lib').current_session_name },
             -- lualine_d = { 'filename' },
             lualine_x = { diff, spaces, 'encoding', filetype },
             lualine_y = { location },
@@ -125,7 +128,4 @@ local lualine_config = function()
     }
 end
 
-return {
-    'nvim-lualine/lualine.nvim',
-    config = lualine_config,
-}
+return M

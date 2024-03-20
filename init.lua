@@ -33,11 +33,10 @@ vim.api.nvim_create_autocmd('ColorScheme', {
         vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef' })
         vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, bg = '#264b33' })
     end,
+    once = true,
 })
 
 vim.cmd 'colorscheme monokai-pro'
--- Open nvim-tree
--- vim.cmd 'NvimTreeOpen'
 
 -- Make it so that when I type :qq it write :qa
 vim.cmd 'cabbrev qq qa'

@@ -1,21 +1,24 @@
 return {
-    {
-        'gbprod/nord.nvim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.g.nord_contrast = true
-            vim.g.nord_borders = false
-            vim.g.nord_disable_background = false
-            vim.g.nord_italic = false
-            vim.g.nord_uniform_diff_background = true
-            vim.g.nord_bold = false
-
-            -- require('nord').setup({})
-        end,
-    },
+    -- {
+    --     'gbprod/nord.nvim',
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         vim.g.nord_contrast = true
+    --         vim.g.nord_borders = false
+    --         vim.g.nord_disable_background = false
+    --         vim.g.nord_italic = false
+    --         vim.g.nord_uniform_diff_background = true
+    --         vim.g.nord_bold = false
+    --
+    --         -- require('nord').setup({})
+    --     end,
+    -- },
     {
         'loctvl842/monokai-pro.nvim',
+        -- dir = 'C:\\Users\\Max\\Downloads\\monokai-pro.nvim-master',
+        -- name = 'monokai-pro',
+        lazy = false,
         priority = 1000,
         config = function()
             require('monokai-pro').setup {
@@ -32,7 +35,7 @@ return {
                     annotation = { italic = true },
                     tag_attribute = { italic = true }, -- attribute of tag in reactjs
                 },
-                filter = 'spectrum', -- classic | octagon | pro | machine | ristretto | spectrum
+                filter = 'pro', -- classic | octagon | pro | machine | ristretto | spectrum
                 -- Enable this will disable filter option
                 day_night = {
                     enable = true, -- turn off by default
@@ -45,11 +48,9 @@ return {
                     'toggleterm',
                     'telescope',
                     'which-key',
-                    'renamer',
                     'notify',
                     'nvim-tree',
-                    -- "neo-tree",
-                    -- 'bufferline', -- better used if background of `neo-tree` or `nvim-tree` is cleared
+                    'bufferline', -- better used if background of `neo-tree` or `nvim-tree` is cleared
                 }, -- "float_win", "toggleterm", "telescope", "which-key", "renamer", "neo-tree", "nvim-tree", "bufferline"
                 plugins = {
                     bufferline = {
@@ -72,17 +73,17 @@ return {
                 end,
             }
         end,
-        opts = {
-            event = 'VimEnter',
-        },
+        -- opts = {
+        -- event = 'VimEnter',
+        -- },
     },
-    {
-        'catppuccin/nvim',
-        name = 'catppuccin',
-        priority = 1000,
-    },
-    {
-        'folke/tokyonight.nvim',
-        priority = 1000, -- make sure to load this before all the other start plugins
-    },
+    -- {
+    --     'catppuccin/nvim',
+    --     name = 'catppuccin',
+    --     priority = 1000,
+    -- },
+    -- {
+    --     'folke/tokyonight.nvim',
+    --     priority = 1000, -- make sure to load this before all the other start plugins
+    -- },
 }
