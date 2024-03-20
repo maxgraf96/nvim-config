@@ -1,22 +1,5 @@
 return {
     {
-        'neovim/nvim-lspconfig',
-        dependencies = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim' },
-        config = function()
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-            require('mason').setup()
-            local mason_lspconfig = require 'mason-lspconfig'
-            mason_lspconfig.setup {
-                ensure_installed = { 'pyright' },
-            }
-            require('lspconfig').pyright.setup {
-                capabilities = capabilities,
-            }
-        end,
-    },
-    {
         'jose-elias-alvarez/null-ls.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
@@ -78,9 +61,9 @@ return {
             })
 
             -- Key mappings
-            vim.api.nvim_set_keymap('n', '<F5>', "<Cmd>lua require'dap'.continue()<CR>", {
-                noremap = true,
-            })
+            -- vim.api.nvim_set_keymap('n', '<F5>', "<Cmd>lua require'dap'.continue()<CR>", {
+            -- noremap = true,
+            -- })
             vim.api.nvim_set_keymap('n', '<F10>', "<Cmd>lua require'dap'.step_over()<CR>", {
                 noremap = true,
             })
@@ -111,7 +94,25 @@ return {
         'rcarriga/nvim-dap-ui',
         dependencies = { 'mfussenegger/nvim-dap' },
         config = function()
-            require('dapui').setup()
+            require('dapui').setup {
+                -- Set icons to characters that are more likely to work in every terminal.
+                --    Feel free to remove or use ones that you like more! :)
+                --    Don't feel like these are good choices.
+                icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
+                controls = {
+                    icons = {
+                        pause = '⏸',
+                        play = '▶',
+                        step_into = '⏎',
+                        step_over = '⏭',
+                        step_out = '⏮',
+                        step_back = 'b',
+                        run_last = '▶▶',
+                        terminate = '⏹',
+                        disconnect = '⏏',
+                    },
+                },
+            }
             -- Key mappings
             vim.api.nvim_set_keymap('n', '<Leader>dd', "<Cmd>lua require'dapui'.toggle()<CR>", {
                 noremap = true,

@@ -67,14 +67,6 @@ wk.register({
     silent = true,
     noremap = true,
 })
-wk.register({
-    name = 'Telescope',
-    ['<C-t>'] = { '<cmd>Telescope live_grep<cr>', 'Find text in project' },
-}, {
-    mode = 'n',
-    silent = true,
-    noremap = true,
-})
 
 -- NvimTree
 wk.register({
@@ -133,7 +125,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- ctrl+s to save
-keymap('n', '<C-s>', '<cmd>w<cr>', opts)
+keymap('n', '<C-s>', '<cmd>:wa<cr>', opts)
+keymap('i', '<C-s>', '<cmd>:wa<cr><Esc>', opts)
 
 wk.register({
     ['<leader>h'] = { '<cmd>Bdelete<cr>', 'Close Buffer' },
@@ -142,8 +135,6 @@ wk.register({
     silent = true,
     noremap = true,
 })
-
-keymap('i', '<C-s>', '<Esc>:w<CR>', opts)
 
 -- Move current line on up with Alt+Shift+k
 keymap('n', '<A-S-k>', ':m .-2<CR>==', { noremap = true, silent = true })
@@ -209,6 +200,33 @@ vim.keymap.set('n', '<F8>', function()
         subProcess = true,
     }
 end, { noremap = true, silent = true })
+
+vim.keymap.set('n', '<F5>', function()
+    local venv_path = os.getenv 'VIRTUAL_ENV' or os.getenv 'CONDA_PREFIX'
+    local target_file = vim.fn.expand '%:p'
+    vim.notify('Launching file: ' .. target_file, 'info')
+    -- vim.notify('Venv path: ' .. venv_path)
+    local dap = require 'dap'
+    dap.run {
+        type = 'python',
+        request = 'launch',
+        name = 'Python: Launch file',
+        program = target_file,
+        cwd = vim.fn.getcwd(),
+        -- venv on Windows uses Scripts instead of bin
+        -- pythonPath = venv_path and ((vim.fn.has 'win32' == 1 and venv_path .. '/Scripts/python') or venv_path .. '/bin/python') or nil,
+        pythonPath = function()
+            return require('venv-selector').get_active_path()
+        end,
+
+        justMyCode = false,
+        console = 'integratedTerminal',
+        -- console = 'externalTerminal',
+        args = { '--multiprocess' },
+        subProcess = true,
+    }
+end, { noremap = true, silent = true })
+
 wk.register({
     ['<leader>ds'] = { "<cmd>lua require'dap'.disconnect({ terminateDebuggee = true })<CR>", 'Stop debugging' },
 }, {
@@ -218,6 +236,21 @@ wk.register({
 })
 
 vim.keymap.set('n', '<M-e>', '<cmd>lua require("dapui").eval()<CR>', { noremap = true, silent = true })
+
+-- ====================================== Refactoring ======================================
+-- Register Shift + F6 to rename the symbol under the cursor in normal mode with wk
+vim.api.nvim_create_user_command('LspRenameAndSave', function(input)
+    vim.lsp.buf.rename()
+    vim.cmd 'wa'
+end, { nargs = 0 })
+
+wk.register({
+    ['<S-F6>'] = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol' },
+}, {
+    mode = 'n',
+    silent = true,
+    noremap = true,
+})
 
 -- vim: ts=2 sts=2 sw=2 et
 --
