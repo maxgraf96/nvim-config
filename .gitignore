@@ -7,3 +7,5 @@ spell/
 lazy-lock.json
 
 venv/
+
+.DS_Store
