@@ -147,5 +147,32 @@ vim.fn.sign_define('DapLogPoint', { texthl = 'DapLogPoint' })
 vim.fn.sign_define('DapStopped', { texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
 require('nvim-dap-virtual-text').setup()
 
+-- Neovide only
+if vim.g.neovide then
+    -- vim.o.guifont = 'JetBrainsMono Nerd Font:h11'
+    -- Put anything you want to happen only in Neovide here
+    vim.opt.linespace = 8
+    vim.g.neovide_cursor_animation_length = 0.02
+    vim.g.neovide_scroll_animation_length = 0.02
+    -- vim.g.neovide_scale_factor = 0.8
+    -- F11 to toggle fullscreen
+    vim.api.nvim_set_keymap('n', '<F11>', '<cmd>lua vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen<cr>', { noremap = true, silent = true })
+
+    -- Allow clipboard copy paste in neovim
+    -- vim.g.neovide_input_use_logo = 1
+    -- vim.keymap.set('v', '<C-c>', '"+y') -- Copy
+    -- vim.keymap.set('n', '<C-v>', '"+P') -- Paste normal mode
+    -- vim.keymap.set('v', '<C-v>', '"+P') -- Paste visual mode
+    -- vim.keymap.set('c', '<C-v>', '<C-R>+') -- Paste command mode
+    -- vim.keymap.set('i', '<C-v>', '<ESC>l"+Pli') -- Paste insert mode
+    --
+    -- vim.api.nvim_set_keymap('', '<C-v>', '+p<CR>', { noremap = true, silent = true })
+    -- vim.api.nvim_set_keymap('!', '<C-v>', '<C-R>+', { noremap = true, silent = true })
+    -- vim.api.nvim_set_keymap('t', '<C-v>', '<C-R>+', { noremap = true, silent = true })
+    -- vim.api.nvim_set_keymap('v', '<C-v>', '<C-R>+', { noremap = true, silent = true })
+    vim.keymap.set({ 'n', 'v', 's', 'x', 'o', 'i', 'l', 'c', 't' }, '<C-v>', function()
+        vim.api.nvim_paste(vim.fn.getreg '+', true, -1)
+    end, { noremap = true, silent = true })
+end
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

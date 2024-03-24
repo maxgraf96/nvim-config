@@ -2,4 +2,4 @@ param(
     $x = ""
 )
 
-Start-Process powershell -ArgumentList ("-NoExit -Command `"cd '$x'; nvim`"") -WindowStyle ([System.Diagnostics.ProcessWindowStyle]::Maximized)
+Start-Process powershell -ArgumentList ("-Command `"cd '$x'; neovide`"")

@@ -267,5 +267,7 @@ wk.register({
     noremap = true,
 })
 
+keymap('i', '<C-BS>', '<C-w>', { noremap = true, silent = true })
+
 -- vim: ts=2 sts=2 sw=2 et
 --
