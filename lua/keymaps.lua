@@ -272,5 +272,14 @@ wk.register({
 
 keymap('i', '<C-BS>', '<C-w>', { noremap = true, silent = true })
 
+-- Shift + i to evaluate expression with nvim dap ui require("dapui").eval(<expression>)
+wk.register({
+    ['<S-i>'] = { '<cmd>lua require("dapui").eval()<CR>', 'Evaluate expression' },
+}, {
+    mode = 'n',
+    silent = true,
+    noremap = true,
+})
+
 -- vim: ts=2 sts=2 sw=2 et
 --

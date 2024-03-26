@@ -119,11 +119,6 @@ function M.config()
             opts = vim.tbl_deep_extend('force', settings, opts)
         end
 
-        -- Lua specific options
-        if server == 'lua_ls' then
-            require('neodev').setup {}
-        end
-
         -- Other server specific options will go here...
         --
         --
