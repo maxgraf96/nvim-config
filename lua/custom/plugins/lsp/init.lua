@@ -98,6 +98,44 @@ return {
                         disconnect = '⏏',
                     },
                 },
+                layouts = {
+                    {
+                        elements = {
+                            {
+                                id = 'scopes',
+                                size = 0.25,
+                            },
+                            {
+                                id = 'breakpoints',
+                                size = 0.25,
+                            },
+                            {
+                                id = 'stacks',
+                                size = 0.25,
+                            },
+                            {
+                                id = 'watches',
+                                size = 0.25,
+                            },
+                        },
+                        position = 'left',
+                        size = 45,
+                    },
+                    {
+                        elements = {
+                            {
+                                id = 'repl',
+                                size = 0.2,
+                            },
+                            {
+                                id = 'console',
+                                size = 0.8,
+                            },
+                        },
+                        position = 'bottom',
+                        size = 12,
+                    },
+                },
             }
             -- Key mappings
             vim.api.nvim_set_keymap('n', '<Leader>dd', "<Cmd>lua require'dapui'.toggle()<CR>", {

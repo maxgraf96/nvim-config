@@ -223,8 +223,8 @@ vim.keymap.set('n', '<F5>', function()
         end,
 
         justMyCode = false,
-        console = 'integratedTerminal',
-        -- console = 'externalTerminal',
+        -- console = 'integratedTerminal',
+        console = 'externalTerminal',
         args = { '--multiprocess' },
         subProcess = true,
     }
