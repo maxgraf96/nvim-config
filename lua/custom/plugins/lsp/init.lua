@@ -47,9 +47,9 @@ return {
             })
 
             -- Key mappings
-            -- vim.api.nvim_set_keymap('n', '<F5>', "<Cmd>lua require'dap'.continue()<CR>", {
-            -- noremap = true,
-            -- })
+            vim.api.nvim_set_keymap('n', '<F6>', "<Cmd>lua require'dap'.continue()<CR>", {
+                noremap = true,
+            })
             vim.api.nvim_set_keymap('n', '<F10>', "<Cmd>lua require'dap'.step_over()<CR>", {
                 noremap = true,
             })

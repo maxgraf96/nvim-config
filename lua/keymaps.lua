@@ -167,7 +167,7 @@ vim.api.nvim_set_keymap('i', '<C-l>', '<S-Right>', { noremap = true, silent = tr
 vim.api.nvim_set_keymap('n', '<C-w>', '<cmd>Bdelete<cr>', { noremap = true, silent = true })
 
 -- Ctrl + alt + l reveals file in nvim-tree in normal mode
-vim.api.nvim_set_keymap('n', '<C-A-l>', '<cmd>NvimTreeFindFile<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-M-l>', '<cmd>NvimTreeFindFile<cr>', { noremap = true, silent = true })
 
 -- F8 to debug main.py in the current directory
 vim.keymap.set('n', '<F8>', function()
@@ -205,7 +205,10 @@ vim.keymap.set('n', '<F5>', function()
     local venv_path = os.getenv 'VIRTUAL_ENV' or os.getenv 'CONDA_PREFIX'
     local target_file = vim.fn.expand '%:p'
     vim.notify('Launching file: ' .. target_file, 'info')
-    -- vim.notify('Venv path: ' .. venv_path)
+    -- vim.notify('Venv path: ' .. venv_path, 'info')
+    -- For some reason calling it here makes the below pythonPath work...
+    require('venv-selector').get_active_path()
+    -- vim.notify('Venv-selector active path: ' .. active_venv, 'info')
     local dap = require 'dap'
     dap.run {
         type = 'python',

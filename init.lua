@@ -60,7 +60,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
         if venv ~= '' then
             require('venv-selector').retrieve_from_cache()
             -- echo that the venv with the path has been activated
-            vim.cmd 'echo "Venv activated."'
+            -- vim.notify('Venv activated.', 'info')
         end
     end,
     once = true,
@@ -152,7 +152,7 @@ if vim.g.neovide then
     -- vim.o.guifont = 'JetBrainsMono Nerd Font:h11'
     -- Put anything you want to happen only in Neovide here
     vim.opt.linespace = 8
-    vim.g.neovide_cursor_animation_length = 0.02
+    vim.g.neovide_cursor_animation_length = 0.0
     vim.g.neovide_scroll_animation_length = 0.02
     -- vim.g.neovide_scale_factor = 0.8
     -- F11 to toggle fullscreen

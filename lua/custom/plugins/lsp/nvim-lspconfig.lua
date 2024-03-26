@@ -16,7 +16,11 @@ end
 
 M.on_attach = function(client, bufnr)
     lsp_keymaps(bufnr)
-    require('mason').on_attach(client, bufnr)
+    local status_ok, mason = pcall(require, 'mason')
+    if not status_ok then
+        return
+    end
+    mason.on_attach(client, bufnr)
 end
 
 M.common_capabilities = function()
