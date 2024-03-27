@@ -124,12 +124,48 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
--- ctrl+s to save
-keymap('n', '<C-s>', '<cmd>:wa<cr>', opts)
-keymap('i', '<C-s>', '<cmd>:wa<cr><Esc>', opts)
+-- ctrl+s to save and if we have an rsync.txt file, sync to the servers
+save_and_sync = function()
+    -- Save all buffers
+    vim.cmd ':wa'
+
+    -- Chck for an rsync.txt file
+    -- NOTE: This will fail if we somehow change the vim cwd
+    if vim.fn.filereadable 'rsync.txt' == 1 then
+        -- We have a rsync.txt file, sync to the servers
+        -- Check OS
+        if vim.fn.has 'win32' == 1 then
+            -- Windows: call our fancy script in the background that uses cygwin
+            -- Get nvim home directory
+            local nvim_home = vim.fn.stdpath 'config'
+            local rsync_script = nvim_home .. '\\windows\\RsyncToServer.bat'
+            local cmd = 'start ' .. rsync_script
+            vim.cmd('!' .. cmd)
+        else
+            -- macOS
+            -- todo
+            vim.notify('rsync not implemented for macOS yet. go to keymaps.lua and implement the right command.', 'warn')
+        end
+    end
+end
 
 wk.register({
-    ['<leader>h'] = { '<cmd>Bdelete<cr>', 'Close Buffer' },
+    ['<C-s>'] = { '<cmd>:wa<cr>', 'Save' },
+}, {
+    mode = 'n',
+    silent = true,
+    noremap = true,
+})
+wk.register({
+    ['<C-s>'] = { '<cmd>:wa<cr><Esc>', 'Save' },
+}, {
+    mode = 'i',
+    silent = true,
+    noremap = true,
+})
+-- <leader>us to save and sync in normal mode
+wk.register({
+    ['<leader>us'] = { '<cmd>:lua save_and_sync()<cr>', 'Save and sync' },
 }, {
     mode = 'n',
     silent = true,
